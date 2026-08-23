@@ -1165,21 +1165,25 @@ closeProfile();
 
 };
 
-function toggleMusic(){
+async function toggleMusic(){
 
     const bgm = document.getElementById("bgm");
     const btn = document.getElementById("musicBtn");
 
     if(bgm.paused){
 
-        bgm.play();
-
-        btn.textContent = "🔇 음악 끄기";
+        try{
+            await bgm.play();
+            btn.textContent = "🔇 음악 끄기";
+        }catch(error){
+            console.log("음악 재생 실패:", error);
+            btn.textContent = "🎵 음악 재생";
+            alert("음악 파일을 재생할 수 없습니다.");
+        }
 
     }else{
 
         bgm.pause();
-
         btn.textContent = "🎵 음악 재생";
 
     }
