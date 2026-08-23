@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>조선별동대</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:#090909;
+    color:#eee;
+    font-family:"Noto Serif KR",serif;
+}
+
+section{
+    padding:90px 7%;
+    border-bottom:1px solid #332b20;
+}
+
+h1,h2,h3{
+    font-family:serif;
+}
+
+button{
+    font-family:inherit;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    background:
+    radial-gradient(circle at center,#392719 0%,#100d0a 45%,#050505 100%);
+}
+
+.logo{
+    font-size:clamp(55px,10vw,120px);
+    font-weight:bold;
+    letter-spacing:12px;
+    color:#ead7b5;
+    text-shadow:0 0 25px #8b5d2b;
+}
+
+.subtitle{
+    margin-top:10px;
+    font-size:18px;
+    color:#b9a98d;
+}
+
+.hero-text{
+    max-width:650px;
+    line-height:2;
+    color:#aaa;
+    margin:35px 0;
+}
+
+.story-btn{
+    border:1px solid #b99a62;
+    background:transparent;
+    color:#e6d0a5;
+    padding:15px 35px;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.story-btn:hover{
+    background:#b99a62;
+    color:#111;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:38px;
+    color:#e5c98d;
+    letter-spacing:5px;
+}
+
+.section-title p{
+    color:#888;
+}
+
+/* =========================
+   STORY
+========================= */
+
+.story{
+    max-width:950px;
+    margin:auto;
+}
+
+.story-box{
+    border:1px solid #55452d;
+    padding:40px;
+    background:linear-gradient(145deg,#15120f,#0b0b0b);
+    line-height:2;
+}
+
+.story-box h3{
+    color:#d7b777;
+    margin-top:30px;
+}
+
+.story-box h3:first-child{
+    margin-top:0;
+}
+
+/* =========================
+   CHARACTER CARDS
+========================= */
+
+.character-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    max-width:1300px;
+    margin:auto;
+}
+
+.character-card{
+    border:1px solid #50432d;
+    background:#111;
+    cursor:pointer;
+    transition:.35s;
+    overflow:hidden;
+}
+
+.character-card:hover{
+    transform:translateY(-8px);
+    border-color:#c6a35d;
+    box-shadow:0 0 25px #6b4b1f;
+}
+
+.character-card img{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    display:block;
+    background:#1b1814;
+}
+
+.card-info{
+    padding:15px;
+    text-align:center;
+}
+
+.card-info h3{
+    margin:0 0 8px;
+    color:#ead7b5;
+}
+
+.card-info p{
+    margin:3px;
+    color:#999;
+    font-size:13px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:1000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.85);
+    overflow:auto;
+    padding:30px;
+}
+
+.modal-content{
+    max-width:900px;
+    margin:50px auto;
+    background:#100f0d;
+    border:1px solid #806a40;
+    padding:35px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:10px;
+    font-size:35px;
+    color:#aaa;
+    cursor:pointer;
+}
+
+.profile{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.profile img{
+    width:100%;
+    max-height:650px;
+    object-fit:cover;
+    border:1px solid #5c4b31;
+}
+
+.profile-info h2{
+    font-size:40px;
+    color:#e4c787;
+    margin-top:0;
+}
+
+.profile-info p{
+    line-height:1.8;
+    border-bottom:1px solid #29251f;
+    padding-bottom:8px;
+}
+
+.profile-info strong{
+    color:#d2ad66;
+}
+
+/* =========================
+   DEMONS
+========================= */
+
+.demo-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:15px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.demo-card{
+    border:1px solid #3c3429;
+    background:#111;
+    padding:25px;
+    text-align:center;
+}
+
+.demo-card h3{
+    color:#d7a87c;
+}
+
+.demo-card p{
+    color:#999;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* =========================
+   WEAPONS
+========================= */
+
+.weapon-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.weapon{
+    border:1px solid #51432c;
+    padding:25px;
+    background:#12110f;
+}
+
+.weapon h3{
+    color:#dfc27f;
+}
+
+/* =========================
+   PEOPLE
+========================= */
+
+.people{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.person{
+    padding:30px;
+    border:1px solid #4b4030;
+    background:#12110f;
+}
+
+.person h3{
+    color:#e1c27d;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.gallery img{
+    width:100%;
+    height:330px;
+    object-fit:cover;
+    border:1px solid #4b4030;
+    background:#151515;
+}
+
+/* =========================
+   END
+========================= */
+
+.end{
+    min-height:60vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+
+    background:
+    radial-gradient(circle,#30281d,#070707 65%);
+}
+
+.end h2{
+    font-size:55px;
+    color:#e6d3ac;
+    letter-spacing:8px;
+}
+
+.end p{
+    color:#777;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .character-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .profile{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    section{
+        padding:65px 5%;
+    }
+
+    .character-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .logo{
+        font-size:48px;
+        letter-spacing:5px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<section class="hero">
+
+    <div class="logo">조선별동대</div>
+
+    <div class="subtitle">
+        글은 칼보다 강하고, 먹은 악을 지운다.
+    </div>
+
+    <div class="hero-text">
+
+        인간의 글과 먹에 깃든 힘.<br>
+        다섯 개의 문장패를 가진 별동대가<br>
+        조선을 뒤덮은 악귀와 맞선다.
+
+    </div>
+
+    <button class="story-btn"
+    onclick="document.getElementById('story').scrollIntoView()">
+
+        STORY 보기
+
+    </button>
+
+</section>
+
+
+<!-- =========================
+     STORY
+========================= -->
+
+<section id="story">
+
+<div class="section-title">
+
+    <h2>── STORY ──</h2>
+
+    <p>조선별동대의 세계관</p>
+
+</div>
+
+
+<div class="story">
+
+<div class="story-box">
+
+<h3>세계관</h3>
+
+<p>
+
+조선에는 인간의 문과 기운, 그리고 먹에 반응하는
+「연귀(戀鬼)」라는 존재가 나타난다.
+
+</p>
+
+<p>
+
+세종대왕은 백성들의 삶을 지키기 위해
+문자에 특별한 힘을 부여했고,
+그 힘은 다섯 개의 문장패로 나뉘게 된다.
+
+</p>
+
+<h3>조선별동대</h3>
+
+<p>
+
+불 · 번개 · 물 · 바람 · 흑묵.
+
+다섯 가지 힘을 가진 다섯 명의 별동대원들이
+악귀를 물리치기 위해 모인다.
+
+</p>
+
+<h3>그들의 임무</h3>
+
+<p>
+
+악귀를 퇴치하고,
+잃어버린 문장패를 되찾으며,
+조선 곳곳에 나타나는 이상현상의 원인을 밝혀내는 것.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CHARACTERS
+========================= -->
+
+<section id="characters">
+
+<div class="section-title">
+
+<h2>── CHARACTERS ──</h2>
+
+<p>문장패를 계승한 다섯 명의 별동대</p>
+
+</div>
+
+
+<div class="character-grid">
+
+
+<!-- 영준 -->
+
+<div class="character-card"
+onclick="openProfile('yeongjun')">
+
+<img src="images/yeongjun.jpg">
+
+<div class="card-info">
+
+<h3>🔥 영준</h3>
+
+<p>火 · 불</p>
+<p>붉은 붓 / 화염의 힘</p>
+
+</div>
+
+</div>
+
+
+<!-- 지우 -->
+
+<div class="character-card"
+onclick="openProfile('jiwoo')">
+
+<img src="images/jiwoo.jpg">
+
+<div class="card-info">
+
+<h3>⚡ 지우</h3>
+
+<p>電 · 번개</p>
+<p>노랑 붓 / 번개의 힘</p>
+
+</div>
+
+</div>
+
+
+<!-- 동규 -->
+
+<div class="character-card"
+onclick="openProfile('donggyu')">
+
+<img src="images/donggyu.jpg">
+
+<div class="card-info">
+
+<h3>💧 동규</h3>
+
+<p>水 · 물</p>
+<p>파랑 붓 / 물의 힘</p>
+
+</div>
+
+</div>
+
+
+<!-- 승모 -->
+
+<div class="character-card"
+onclick="openProfile('seungmo')">
+
+<img src="images/seungmo.jpg">
+
+<div class="card-info">
+
+<h3>🌿 승모</h3>
+
+<p>風 · 바람</p>
+<p>녹색 붓 / 바람의 힘</p>
+
+</div>
+
+</div>
+
+
+<!-- 성민 -->
+
+<div class="character-card"
+onclick="openProfile('seongmin')">
+
+<img src="images/seongmin.jpg">
+
+<div class="card-info">
+
+<h3>墨 성민</h3>
+
+<p>墨 · 흑묵</p>
+<p>흑묵 붓 / 먹의 힘</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     DEMONS
+========================= -->
+
+<section id="demons">
+
+<div class="section-title">
+
+<h2>── DEMONS ──</h2>
+
+<p>악귀 도감</p>
+
+</div>
+
+
+<div class="demo-grid">
+
+
+<div class="demo-card">
+
+<h3>식언귀</h3>
+
+<p>
+거짓말을 먹는다.<br>
+사람의 말을 빼앗아 힘으로 삼는다.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>망언귀</h3>
+
+<p>
+사람의 악한 말을 먹는다.<br>
+분노와 증오를 키운다.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>망각귀</h3>
+
+<p>
+사람의 기억을 먹는다.<br>
+소중한 기억을 지워버린다.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>침묵귀</h3>
+
+<p>
+목소리를 빼앗는다.<br>
+주변을 침묵으로 만든다.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>원한귀</h3>
+
+<p>
+죽은 사람의 원한에서 태어난 악귀.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>몽귀</h3>
+
+<p>
+꿈을 먹는다.<br>
+사람의 꿈속에 숨어든다.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>혹서귀</h3>
+
+<p>
+흑을 먹는다.<br>
+어둠 속에서 힘을 얻는다.
+</p>
+
+</div>
+
+
+<div class="demo-card">
+
+<h3>이름귀</h3>
+
+<p>
+사람의 이름을 먹는다.<br>
+이름을 잃은 사람은 존재가 희미해진다.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     WEAPONS
+========================= -->
+
+<section id="weapons">
+
+<div class="section-title">
+
+<h2>── WEAPONS ──</h2>
+
+<p>공통 무기 & 아이템 도감</p>
+
+</div>
+
+
+<div class="weapon-grid">
+
+
+<div class="weapon">
+
+<h3>문훈경</h3>
+
+<p>
+악귀의 움직임과 기운을 감지하는
+특수한 거울.
+</p>
+
+</div>
+
+
+<div class="weapon">
+
+<h3>봉인부</h3>
+
+<p>
+악귀를 일시적으로 봉인하는
+부적.
+</p>
+
+</div>
+
+
+<div class="weapon">
+
+<h3>천리붓</h3>
+
+<p>
+멀리 떨어진 곳에도
+먹의 힘을 전달할 수 있는 붓.
+</p>
+
+</div>
+
+
+<div class="weapon">
+
+<h3>묵환</h3>
+
+<p>
+먹으로 만들어진 특별한 환.
+악귀의 움직임을 제한한다.
+</p>
+
+</div>
+
+
+<div class="weapon">
+
+<h3>결계부</h3>
+
+<p>
+악귀가 들어오지 못하도록
+결계를 만든다.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PEOPLE
+========================= -->
+
+<section id="people">
+
+<div class="section-title">
+
+<h2>── PEOPLE ──</h2>
+
+<p>조선별동대의 주요 인물</p>
+
+</div>
+
+
+<div class="people">
+
+
+<div class="person">
+
+<h3>세종대왕</h3>
+
+<p>
+백성을 위해 문자를 만들고,
+문자에 특별한 힘을 부여한 인물.
+</p>
+
+<p>
+조선별동대가 탄생하게 된
+가장 중요한 인물이다.
+</p>
+
+</div>
+
+
+<div class="person">
+
+<h3>한링이</h3>
+
+<p>
+조선별동대와 함께 움직이는
+신비로운 존재.
+</p>
+
+<p>
+별동대에게 사건의 단서를 알려주며
+그들의 여정을 돕는다.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     GALLERY
+========================= -->
+
+<section id="gallery">
+
+<div class="section-title">
+
+<h2>── GALLERY ──</h2>
+
+<p>조선별동대의 기록</p>
+
+</div>
+
+
+<div class="gallery">
+
+<img src="images/overview.jpg">
+
+<img src="images/yeongjun.jpg">
+
+<img src="images/jiwoo.jpg">
+
+<img src="images/donggyu.jpg">
+
+<img src="images/seungmo.jpg">
+
+<img src="images/seongmin.jpg">
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     END
+========================= -->
+
+<section class="end">
+
+<h2>조선별동대</h2>
+
+<p>THE END</p>
+
+</section>
+
+
+
+<!-- =========================
+     PROFILE MODAL
+========================= -->
+
+<div id="profileModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeProfile()">×</span>
+
+
+<div class="profile">
+
+<img id="profileImage" src="">
+
+
+<div class="profile-info">
+
+<h2 id="profileName"></h2>
+
+<p>
+<strong>문장패 :</strong>
+<span id="profileBadge"></span>
+</p>
+
+<p>
+<strong>속성 :</strong>
+<span id="profileElement"></span>
+</p>
+
+<p>
+<strong>무기 :</strong>
+<span id="profileWeapon"></span>
+</p>
+
+<p>
+<strong>나이 :</strong>
+<span id="profileAge"></span>
+</p>
+
+<p>
+<strong>혈액형 :</strong>
+<span id="profileBlood"></span>
+</p>
+
+<p>
+<strong>MBTI :</strong>
+<span id="profileMbti"></span>
+</p>
+
+<p>
+<strong>특징 :</strong>
+<span id="profileFeature"></span>
+</p>
+
+<p>
+<strong>좋아하는 것 :</strong>
+<span id="profileLike"></span>
+</p>
+
+<p>
+<strong>싫어하는 것 :</strong>
+<span id="profileDislike"></span>
+</p>
+
+<p>
+<strong>소개 :</strong>
+<span id="profileDescription"></span>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+const characters = {
+
+yeongjun:{
+
+name:"영준",
+
+image:"images/yeongjun.jpg",
+
+badge:"火",
+
+element:"불",
+
+weapon:"붉은 붓 / 화염의 힘",
+
+age:"16세",
+
+blood:"AB형",
+
+mbti:"ISTP",
+
+feature:"자신감이 넘치고 리더십이 강하다. 언제나 앞장서서 팀을 이끈다.",
+
+like:"주짓수, 도전적인 일",
+
+dislike:"무책임한 행동",
+
+description:"다섯 별동대의 화(火)를 담당하는 리더. 강한 화염의 힘으로 적을 정면에서 상대한다."
+
+},
+
+
+jiwoo:{
+
+name:"지우",
+
+image:"images/jiwoo.jpg",
+
+badge:"電",
+
+element:"번개",
+
+weapon:"노랑 붓 / 우레의 힘",
+
+age:"16세",
+
+blood:"AB형",
+
+mbti:"ENFJ",
+
+feature:"밝고 긍정적이며 동료들에게 영감을 준다. 빠른 판단과 강력한 일격이 특기.",
+
+like:"친구들과 함께하는 시간",
+
+dislike:"불공평한 일",
+
+description:"번개를 다루는 별동대원. 빠른 속도와 강력한 전격으로 적을 제압한다."
+
+},
+
+
+donggyu:{
+
+name:"동규",
+
+image:"images/donggyu.jpg",
+
+badge:"水",
+
+element:"물",
+
+weapon:"파랑 붓 / 바다의 힘",
+
+age:"16세",
+
+blood:"A형",
+
+mbti:"INTJ",
+
+feature:"냉철하고 분석적이며 조용하지만 강한 책임감을 지닌다.",
+
+like:"조용한 곳, 전략 세우기",
+
+dislike:"무계획적인 행동",
+
+description:"물(水)의 힘을 사용하는 전략 담당. 상황을 분석하고 원거리에서 전투를 지원한다."
+
+},
+
+
+seungmo:{
+
+name:"승모",
+
+image:"images/seungmo.jpg",
+
+badge:"風",
+
+element:"바람",
+
+weapon:"녹색 붓 / 바람의 힘",
+
+age:"16세",
+
+blood:"B형",
+
+mbti:"ISTJ",
+
+feature:"침착하고 원칙을 중요하게 생각한다. 전략적인 움직임으로 전장을 휘젓는다.",
+
+like:"규칙적인 생활",
+
+dislike:"약속을 어기는 것",
+
+description:"바람처럼 빠르고 자유로운 별동대원. 기동성과 회피 능력이 뛰어나다."
+
+},
+
+
+seongmin:{
+
+name:"성민",
+
+image:"images/seongmin.jpg",
+
+badge:"墨",
+
+element:"흑묵",
+
+weapon:"흑묵 붓 / 먹의 힘",
+
+age:"16세",
+
+blood:"AB형",
+
+mbti:"ESFJ",
+
+feature:"조용해 보이지만 장난기가 많고 정이 깊다. 먹과 그림자를 이용해 악귀를 봉인한다.",
+
+like:"친구들과 장난치기",
+
+dislike:"친구를 괴롭히는 것",
+
+description:"흑묵의 힘을 사용하는 봉인 담당. 그림자와 먹을 이용해 악귀의 움직임을 봉쇄한다."
+
+}
+
+};
+
+
+
+function openProfile(id){
+
+const member=characters[id];
+
+document.getElementById("profileName").textContent=member.name;
+
+document.getElementById("profileImage").src=member.image;
+
+document.getElementById("profileBadge").textContent=member.badge;
+
+document.getElementById("profileElement").textContent=member.element;
+
+document.getElementById("profileWeapon").textContent=member.weapon;
+
+document.getElementById("profileAge").textContent=member.age;
+
+document.getElementById("profileBlood").textContent=member.blood;
+
+document.getElementById("profileMbti").textContent=member.mbti;
+
+document.getElementById("profileFeature").textContent=member.feature;
+
+document.getElementById("profileLike").textContent=member.like;
+
+document.getElementById("profileDislike").textContent=member.dislike;
+
+document.getElementById("profileDescription").textContent=member.description;
+
+document.getElementById("profileModal").style.display="block";
+
+}
+
+
+
+function closeProfile(){
+
+document.getElementById("profileModal").style.display="none";
+
+}
+
+
+
+window.onclick=function(event){
+
+const modal=document.getElementById("profileModal");
+
+if(event.target===modal){
+
+closeProfile();
+
+}
+
+};
+
+
+</script>
+
+
+</body>
+</html>
