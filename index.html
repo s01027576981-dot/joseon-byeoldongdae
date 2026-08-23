@@ -397,13 +397,28 @@ button{
     }
 
 }
-
+    #musicBtn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:2000;
+    padding:12px 18px;
+    border:1px solid #b99a62;
+    background:#111;
+    color:#e6d0a5;
+    cursor:pointer;
+    border-radius:5px;
+}
 </style>
 </head>
 
 
 <body>
+<audio id="bgm" loop>
+    <source src="joseon_music.mp3" type="audio/mpeg">
+</audio>
 
+<button id="musicBtn" onclick="toggleMusic()">🎵 음악 재생</button>
 
 <!-- =========================
      MAIN
@@ -1248,7 +1263,28 @@ closeProfile();
 
 
 </script>
+    
+function toggleMusic(){
 
+    const bgm = document.getElementById("bgm");
+    const btn = document.getElementById("musicBtn");
 
+    if(bgm.paused){
+
+        bgm.play();
+
+        btn.textContent = "🔇 음악 끄기";
+
+    }else{
+
+        bgm.pause();
+
+        btn.textContent = "🎵 음악 재생";
+
+    }
+
+}
+</script>
+    
 </body>
 </html>
